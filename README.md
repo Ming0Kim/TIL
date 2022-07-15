@@ -1,6 +1,6 @@
 # TIL
 
-==Ming0Kim Github==
+:rabbit:Ming0Kim Github:rabbit:
 
 
 ### :ocean:Start_camp:ocean:
