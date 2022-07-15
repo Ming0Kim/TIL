@@ -1,6 +1,6 @@
 # TIL
 
->==:seedling:Ming0Kim Github:seedling:==
+==:seedling:Ming0Kim Github:seedling:==
 
 
 ### :ocean:Start_camp:ocean:
