@@ -18,9 +18,7 @@
 
 ### Git 기본기
 
-- README.md
-
-   생성하기
+- README.md 생성하기
 
   - 새 폴더를 만들고 [README.md](http://README.md) 파일을 생성해 주세요.
   - 이 파일을 버전 관리하며 Git을 사용해 봅시다.
