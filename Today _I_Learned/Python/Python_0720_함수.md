@@ -29,3 +29,4 @@
 - 문서화(Docstring)
 - 범위(Scope)
 - 결과값(Output)
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9581d7a7-35de-49dd-948a-0ddddb82f769/Untitled.png)
