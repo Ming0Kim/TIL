@@ -35,3 +35,12 @@
 - `Working Directory` 에서 `untracked` 파일이 `git add`를 통해 `staging area` 로 이동, `git commit`을 통해 `repository`로 `committed` 파일이 됨.
 
 - `git status` : 현재 git으로 관리되고 있는 파일들의 상태를 알 수 있음
+
+### .gitignore
+파일 생성 후 안에 쓴 파일 이름명은 깃 푸쉬 무시 가능
+- *.txt 로 텍스트 파일 전체 푸쉬 무시 가능
+
+### .gitkeep
+빈 폴더라도 깃 푸쉬 가능
+
+### [gitignore.io](https://www.toptal.com/developers/gitignore/)
