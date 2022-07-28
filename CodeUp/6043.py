@@ -1,2 +1,3 @@
-f1, f2 = map(float,input().split())
-print(round(float(f1/f2),3))
+a, b = map(float, input().split())
+
+print(f'{a/b:.3f}')
