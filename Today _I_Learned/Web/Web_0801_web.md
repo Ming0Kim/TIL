@@ -185,4 +185,14 @@ HTML의 요소는 태그와 내용(contents)로 구성되어 있다.
     `application/x-www-form-urlencoded` : 기본값
     
     `multipart/form-data` : 파일 전송시(input type이 file인 경우)
+
+### input
+
+- 다양한 타입을 가지는 입력 데이터 유형과 위젯이 제공됨
+- <input> 대표적인 속성
     
+    `name` : form control에 적용되는 이름(이름/ 값 페어로 전송됨)
+    
+    `value` : form control에 적용되는 값(이름/ 값 페어로 전송됨)
+    
+    - required, readonly, autofocus, autocomplete, disabled 등
