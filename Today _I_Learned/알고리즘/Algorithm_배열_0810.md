@@ -142,6 +142,16 @@ for i in range(2) :
 				print_subset(bit)    #생성된 부분집합 출력
 ```
 
+```python
+num = list(map(int,input().split()))
+subnum = [[]]
+for i in num:
+    n = len(subnum)
+    for j in range(n):
+        subnum += [(subnum[j] + [i])]
+print(subnum)
+```
+
 ### 비트 연산자
 
 - 비트 연산자
