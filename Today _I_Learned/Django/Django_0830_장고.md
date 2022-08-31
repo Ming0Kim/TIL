@@ -163,8 +163,6 @@
 
 ### 기본 설정
 
-### 기본 설정
-
 **가상환경 설정 및 활성화**
 
 - `python -m venv venv` : 가상환경 설정
@@ -344,3 +342,203 @@
 
 - 추가 템플릿 경로
     - `app_name/templates/` 디렉토리 경로 외 추가 경로를 설정한 것
+
+## Sending and Retrieving from data
+
+---
+
+### Sending form data (Client)
+
+**HTML <form> elemnet**
+
+- 데이터가 전송되는 방법을 정의
+- 웹에서 사용자 정보를 입력하는 여러 방식(text, button, submit 등)을 제공하고, **사용자로부터 할당된 데이터를 서버로 전송**하는 역할을 담당
+- **데이터를 어디(action)로 어떤 방식(method)으로 보낼지**
+- 핵심 속성 : `action` `method`
+
+**HTML form’s attributes**
+
+1. `action`
+    - 입력 데이터가 전송될 URL을 지정
+    - 데이터를 어디로 보낼 것인지 지정하는 것이며 이 값은 반드시 유효한 URL이어야 함
+    - 만약 이 속성을 지정하지 않으면 데이터는 현재 form이 있는 페이지의 URL로 보내짐
+2. `method`
+    - 데이터를 어떻게 보낼 것인지 정의
+    - 입력 데이터의 HTTP request methods를 지정
+    - HTML form 데이터는 오직 2가지 방법으로만 전송할 수 있는데 바로 GET 방식과 POST 방식
+
+**HTML <input> element**
+
+- 사용자로부터 데이터를 입력 받기 위해 사용
+- **type**속성에 따라 동작 방식이 달라진다
+    - input 요소의 동작 방식은 type 특성에 따라 현격히 달라지므로 각각의 type은 별도로 MDN 문서에서 참고하여 사용하도록 함
+    - type을 지정하지 않은 경우, 기본값은 **text**
+- 핵심 속성 : `name`
+
+**HTML input’s attribute**
+
+1. `name`
+    - form을 통해 데이터를 제출(submit)했을 때 name 속성에 설정된 값을 서버로 전송하고, 서버는 name 속성에 설정된 값을 통해 사용자가 입력한 데이터 값에 접근할 수 있음
+    - 주요 용도는 GET/POST 방식으로 서버에 전달하는 파라미터(name은 key, value는 value)로 매핑하는 것
+        - GET 방식에서는 URL에서 `'?key=value&key=value/'`형식으로 데이터를 전달
+
+**HTTP request method**
+
+- HTTP
+    - HTML 문서와 같은 리소스(데이터, 자원)들을 가져올 수 있도록 해주는 프로토콜(규칙, 규약)
+- 웹에서 이루어지는 모든 데이터 교환의 기초
+- HTTP는 주어진 리소스가 수행할 원하는 작업을 나타내는 request methods를 정의
+- 자원에 대한 행위(수행하고자 하는 동작)을 정의
+- 주어진 리소스(자원)에 수행하길 원하는 행동을 나타냄
+- HTTP Method 예시
+    - GET, POST, PUT, DELETE
+
+**GET**
+
+- 서버로부터 정보를 조회하는 데 사용
+    - 즉, 서버에게 리소스를 요청하기 위해 사용
+- 데이터를 가져올 때만 사용해야함
+- 데이터를 서버로 전송할 때 Query String Parameters를 통해 전송
+    - 데이터는 URL에 포함되어 서버로 보내짐
+
+**Query String Parameters**
+
+- 사용자가 입력 데이터를 전달하는 방법 중 하나로, url 주소에 데이터를 파라미터를 통해 넘기는 것
+- 이러한 문자열은 앰퍼샌드로 연결된 `key=value`쌍으로 구성되며, 기본 URL과 물음표로 구분됨
+    - `http://host:port/path?key=value&ket=value`
+- Query String이라고도 함
+- 정해진 주소 이후에 물음표를 쓰는 것으로 Query String이 시작함을 알림
+- `key=value`로 필요한 파라미터의 값을 적음
+    - =로 key와 value가 구분됨
+- 파라미터가 여러 개일 경우 &을 붙여 여러 개의 파라미터를 넘길 수 있음
+
+### Retrieving the data (Server)
+
+- **데이터 가져오기(검색하기)**
+- 서버는 클라이언트로 받은 `key=value`쌍의 목록과 같은 데이터를 받게 됨
+- 이러한 목록에 접근하는 방법은 사용하는 특정 프레임워크에 따라 다름
+- 우리는 Django 프레임워크에서 어떻게 데이터를 가져올 수 있을지 알아볼 것
+
+**Request and Response objects**
+
+- 요청과 응답 객체 흐름
+1. 페이지가 요청되면 Django는 요청에 대한 메타데이터를 포함하는 `HttpRequest object`를 생성
+2. 그리고 해당하는 적절한 view함수를 로드하고 HttpRequest를 첫번째 인자로 전달
+3. 마지막으로 view함수는 HttpResponse object를 반환
+
+## DJango URLs
+
+---
+
+- **Dispatcher로서의 URL 이해하기**
+- 웹 어플리케이션은 URL을 통한 클라이언트의 요청에서부터 시작함
+
+### Trailing URL Slashes
+
+- Django는 URL 끝에 /가(Trailing slash) 없다면 자동으로 붙여주는 것이 기본 설정
+    - 그래서 모든 주소가 /로 끝나도록 구성되어 있음
+    - 그러나 모든 프레임워크가 이렇게 동작하는 것은 아님
+- Django의 url 설계 철학을 통해 먼저 살펴보면 다음과 같이 설명함
+- **기술적인 측면에서, `[foo.com/bar`와](http://foo.com/bar와) `[foo.com/bar/`는](http://foo.com/bar/는) 서로 다른 URL이다.**
+    - 검색 엔진 로봇이나 웹 트래픽 분석 도구에서는 그 둘을 서로 다른 페이지로 봄
+    - 그래서 Django는 URL을 정규화하여 검색 엔진 로봇이 혼동하지 않게 해야함
+
+### Variable routing
+
+**Variable routing의 필요성**
+
+- 템플릿의 많은 부분이 중복되고, 일부분만 변경되는 상황에서 비슷한 URL과 템플릿을 계속해서 만들어야 할까?
+
+**Variable routing**
+
+- URL 주소를 변수로 사용하는 것을 의미
+- URL의 일부를 변수로 지정하여 view함수의 인자로 넘길 수 있음
+- 즉, 변수 값에 따라 하나의 `path()`에 여러 페이지를 연결 시킬 수 있음
+
+**Variable routing 작성**
+
+- 변수는 <>에 정의하며 view 함수의 인자로 할당됨
+- 기본 타입은 string이며 5가지 타입으로 명시할 수 있음
+1. str
+    - /를 제외하고 비어있지 않은 모든 문자열
+    - 작성하지 않을 경우 기본 값
+2. int
+    - 0 또는 양의 정수와 매치
+3. slug
+4. uuid
+5. path
+
+### App URL mapping
+
+- 앱이 많아졌을 때 `urls.py`를 각 app에 매핑하는 방법을 이해하기
+- 두번째 app인 **pages**를 생성 및 등록 하고 진행
+- app의 view함수가 많아지면서 사용하는 `path()` 또한 많아지고, app 또한 더 많이 작성되기 떄문에 프로젝트의 `urls.py`에서 모두 관리하고 것은 프로젝트 유지보수에 좋지 않음
+- 하나의 프로젝트의 여러 앱이 존재한다면, 각각의 앱 안에 `urls.py`을 만들고 프로젝트 `urls.py`에서 각 앱의 `urls.py`파일로 URL 매핑을 위탁할 수 있음
+- **각각의 app 폴더 안에 `urls.py`를 작성**하고 수정
+
+**Including other URLconfs**
+
+- urlpattern은 언제든지 다른 URLconf 모듈을 포함(include)할 수 있음
+
+<aside>
+💡 include되는 앱의 url.py에 urlpatterns가 작성되어 있지 않다면 에러가 발생
+예를 들어, pages 앱의 urlpatterns가 빈 리스트라도 작성되어 있어야함
+
+</aside>
+
+- 이제 메인 페이지의 주소는 이렇게 바뀌었음
+    - `[http://127.0.0.1:8000/index/](http://127.0.0.1:8000/index/)` → `http://127.0.0.1:8000/articles/index/`
+- `include()`
+    - 다른 URLconf(app1/urls.py)들을 참조할 수 있도록 돕는 함수
+    - 함수 include()를 만나게 되면 URL의 그 시점까지 일치하는 부분을 잘라내고, 남은 문자열 부분을 후속 처리를 위해 include된 URLconf로 전달
+
+### Naming URL patterns
+
+**Naming URL patterns의 필요성**
+
+- 만약 `index/`의 문자열 주소를 `new-index/`로 바꿔야 한다고 가정
+- 그렇다면 `index/`주소를 사용햇던 모든 곳을 찾아서 변경해야 하는 번거로움이 발생
+
+**Naming URL patterns**
+
+- 이제는 링크에 URL을 직접 작성하는 것이 아니라 `path()`함수의 name인자를 정의해서 사용
+- DTL의 Tag중 하나인 **URL 태그**를 사용해서 `path()`함수에 작성한 name을 사용할 수 있음
+- 이를 통해 URL 설정에 정의된 특정한 경로들의 의존성을 제거할 수 있음
+- Django는 URL에 이름을 지정하는 방법을 제공함으로써 view함수와 템플릿에서 특정 주소를 쉽게 참조할 수 있도록 도움
+
+**Built-in tag-”url”**
+
+- `{% url '' %}`
+- 주어진 URL 패턴 이름 및 선택적 매개 변수와 일치하는 절대 경로 주소를 반환
+- 템플릿에 URL을 하드 코딩하지 않고도 DRY원칙을 위반하지 않으면서 링크를 출력하는 방법
+
+### Django의 설계 철학 (Templates System)
+
+1. **표현과 로직(view)를 분리**
+    - 템플릿 시스템은 표현을 제어하는 도구이자 표현에 관련된 로직일 뿐
+    - 즉, 템플릿 시스템은 이러한 기본 목표를 넘어서는 기능을 지원하지 말아야함
+2. **중복을 배제**
+    - 대다수의 동적 웹사이트는 공통 header, footer, navbar 같은 사이트 공통 디자인을 가짐
+    - Django 템플릿 시스템은 이러한 요소를 한 곳에 저장하기 쉽게 하여 중복 코드를 없애야 함
+    - 템플릿 상속의 기초가 되는 철학
+
+### Framework의 성격
+
+- **독선적(Opinionated)**
+    - 독선적인 프레임워크들은 어떤 특정 작업을 다루는 ‘올바른 방법’에 대한 분명한 의견을 가지고 있음
+    - 대체로 특정 문제 내에서 빠른 개발방법을 제시
+    - 어떤 작업에 대한 올바른 방법이란 보통 잘 알려져 있고 문서화가 잘 되어있기 때문
+    - 하지만 주요 상황을 벗어난 문제에 대해서는 그리 유연하지 못한 해결책을 제시할 수 있음
+- **관용적(Unopinionated)**
+    - 관용적인 프레임워크들은 구성요소를 한데 붙여서 해결해야 한다거나 심지어 어떤 도구를 써야 한다는 ‘올바른 방법’에 대한 제약이 거의 없음
+    - 이는 개발자들이 특정 작업을 완수하는데 가장 적절한 도구들을 이용할 수 있는 자유도가 높음
+    - 하지만 개발자 스스로가 그 도구들을 찾아야 한다는 수고가 필요
+
+### Django Framework의 성격
+
+- **다소 독선적**
+    - 양쪽 모두에게 최선의 결과를 준다고 강조
+- 결국 하고자 하는 말은 현대 개발에 있어서는 가장 중요한 것들 중 하나는 **생산성**
+- 프레임워크는 우리가 하는 개발을 방해하기 위해 규칙, 제약을 만들어 놓은 것이 아님
+- 우리가 온전히 만들고자 하는 것에만 집중할 수 있게 도와주는 것
+- **수레바퀴를 다시 만들지 말라**
