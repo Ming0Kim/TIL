@@ -163,6 +163,16 @@
 
 ### 기본 설정
 
+### 기본 설정
+
+**가상환경 설정 및 활성화**
+
+- `python -m venv venv` : 가상환경 설정
+- `source ./venv/Scripts/activate` : 가상환경 활성화
+- `pip install django==3.2.13` : 가상환경에 장고 설치 3.2.13(LTS)이 우리가 쓰는 버전
+- `pip freeze > requirements.txt` : 패키지 목록 생성
+- `pip install -r requirements.txt` : 파일을 이용해 패키지 한번에 설치
+
 **Django 설치**
 
 - **설치 전 가상환경 설정 및 활성화를 마치고 진행**
