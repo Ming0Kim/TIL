@@ -1,3 +1,12 @@
+# Django 4
+
+강의날짜: 2022/09/07
+공부유형: 강의
+복습: No
+분야: django
+작성일시: 2022년 9월 7일 오전 9:05
+편집일시: 2022년 9월 7일 오후 10:09
+
 # The Django authentication system
 
 ---
@@ -20,13 +29,13 @@
     - auth와 관련한 경로나 키워드들을 Django 내부적으로 accounts라는 이름으로 사용하고 있기 때문에 되도록 accounts로 지정하는 것을 권장
     - 다른 이름으로 설정해도 되지만 나중에 추가 설정을 해야 할 일들이 생기게 됨
         
-        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/036feccb-b86d-41f6-82e9-2891d21035c0/Untitled.png)
+        ![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled.png)
         
 - url 분리 및 매핑
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5868a443-839b-4898-aee0-dd47556c4e56/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%201.png)
 
-# Substituting a custom User model
+## Substituting a custom User model
 
 ---
 
@@ -48,7 +57,7 @@
     - 즉, 첫번째 마이그레이션 전에 확정 지어야 하는 값
 - 다음과 같은 기본 값을 가지고 있음
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f3a23226-e062-4c70-9dcb-6dab8827517a/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%202.png)
 
 - `auth.User` : auth 앱의 User 모델 클래스
 
@@ -57,7 +66,7 @@
 - AUTH_USER_MODEL은 `settings.py`에서 보이지 않는데 어디에 기본값이 작성되어 있는 걸까?
     - 우리가 작성하는 `settings.py`는 사실 `global_settings.py`를 상속받아 재정의하는 파일임
 
-# How to substituting a custom User model
+## How to substituting a custom User model
 
 ---
 
@@ -68,23 +77,24 @@
 
 ### 대체하기
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3a51946f-bd74-4d21-abec-0718d3dd2c14/Untitled.png)
-
 - `AbstractUser`를 상속받는 커스텀 User 클래스 작성
 - 기존 User 클래스도 `AbstractUser`를 상속받기 때문에 커스텀 User 클래스도 완전히 같은 모습을 가지게 됨
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4343bd00-3957-4632-a6ab-a9b4267af632/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%203.png)
 
 - Django 프로젝트에서 User를 나타내는데 사용하는 모델을 방금 생성한 커스텀 User 모델로 지정
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9da7349b-6ccc-4a66-9235-88f7ccddc317/Untitled.png)
-
-- `adjmin.py`에 커스텀 User 모델을 등록
-    - 기본 User 모델이 아니기 대문에 등록하지 않으면 admin site에 출력되지 않음
+    
+    ![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%204.png)
+    
+- `admin.py`에 커스텀 User 모델을 등록
+    - 기본 User 모델이 아니기 때문에 등록하지 않으면 admin site에 출력되지 않음
+        
+        ![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%205.png)
+        
 
 ✅ User 모델 상속 관계
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8c3649d4-d0c5-4200-8788-ab4426f40312/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%206.png)
 
 - `models.Model` → `class AbstractBaseUser` → `class AbstractUser` → `class User`
 
@@ -112,6 +122,12 @@
     1. makemigrations
     2. migrate
 
+### custom User로 변경된 테이블 확인
+
+- 이제 `auth_user` 테이블이 아니라 `accounts_user` 테이블을 사용하게 됨
+
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%207.png)
+
 ### 반드시 User 모델을 대체해야 할까?
 
 - Django는 새 프로젝트를 시작하는 경우 비록 기본 User 모델이 충분하더라도 커스텀 User 모델을 설정하는 것을 **강력하게 권장(highly recommended)**
@@ -119,6 +135,14 @@
     - 단, User 모델 대체 작업은 프로젝트의 모든 migrations 혹은 첫 migrate를 실행하기 전에 이 작업을 마쳐야 함
 
 # HTTP Cookies
+
+---
+
+### 개요
+
+- 로그인과 로그아웃을 이해하기 전 반드시 알아야하는 HTTP Cookies에 대해 먼저 알아보기
+
+## HTTP
 
 ---
 
@@ -131,18 +155,18 @@
 
 ### 요청과 응답
 
-- 요청 (requests)
+- **요청 (requests)**
     - 클라이언트(브라우저)에 의해 전송되는 메시지
-- 응답 (response)
+- **응답 (response)**
     - 서버에서 응답으로 전송하는 메시지
 
 ### HTTP 특징
 
-1. 비연결지향(connectionless)
+1. **비연결지향(connectionless)**
     - 서버는 요청에 대한 응답을 보낸 후 연결을 끊음
         - 예를 들어 우리가 네이버 메인 페이지를 보고 있을 때 우리는 네이버 서버와 연결되어 있는 것이 아님
         - 네이버 서버는 우리에게 메인 페이지를 응답하고 연결을 끊은 것
-2. 무상태(stateless)
+2. **무상태(stateless)**
     - 연결을 끊는 순간 클라이언트와 서버 간의 통신이 끝나며 상태 정보가 유지되지 않음
     - 클라이언트와 서버가 주고받는 메시지들은 서로 완전히 독립적
 
@@ -151,7 +175,7 @@
 - 그런데 우리가 로그인을 하고 웹 사이트를 사용할 때 페이지를 이동해도 로그인 **상태**가 유지됨
 - 서버와 클라이언트 간 지속적인 상태 유지를 위해 **쿠키와 세션**이 존재
 
-# 쿠키(Cookie)
+## 쿠키(Cookie)
 
 ---
 
@@ -172,7 +196,7 @@
 
 ### 쿠키 사용 예시
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ddf2c964-f255-4e98-9b09-3be7f0193da1/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%208.png)
 
 ### 쿠키 사용 목적
 
@@ -185,18 +209,18 @@
 
 ### 세션 (Session)
 
-- 사이트와 특정 브라우저 사이의 **state(상태)를 유지시키는 것**
-- 클라이언트가 서버에 접속하면 서버가 특정 session id를 발급하고, 클라이언트는 session id를 쿠키에 저장
-    - 클라이언트가 다시 동일한 서버에 접속하면 요청과 함께 쿠키(session id가 저장된)를 서버에 전달
-    - 쿠키는 요청 때마다 서버에 함께 전송되므로 서버에서 session id를 확인해 알맞은 로직을 처리
-- session id 는 세션을 구별하기 위해 필요하며, 쿠키에는 session id를 전송
+- 사이트와 특정 브라우저 사이의 **state(상태)**를 유지시키는 것
+- 클라이언트가 서버에 접속하면 서버가 특정 `session id`를 발급하고, 클라이언트는 `session id`를 쿠키에 저장
+    - 클라이언트가 다시 동일한 서버에 접속하면 요청과 함께 쿠키(`session id`가 저장된)를 서버에 전달
+    - 쿠키는 요청 때마다 서버에 함께 전송되므로 서버에서 `session id`를 확인해 알맞은 로직을 처리
+- `session id`는 세션을 구별하기 위해 필요하며, 쿠키에는 `session id`를 전송
 
 ### 쿠키 Lifetime (수명)
 
-1. Session cookie
+1. **Session cookie**
     1. 현재 세션(current session)이 종료되면 삭제됨
     2. 브라우저 종료와 함게 세션이 삭제됨
-2. Persistent cookies
+2. **Persistent cookies**
     1. Expires 속성에 지정된 날짜 혹은 Max-Age 속성에 지정된 기간이 지나면 삭제됨
 
 ### Session in Django
@@ -230,6 +254,10 @@
     - 기본적으로 username과 password를 받아 데이터가 유효한지 검증
 - request를 첫번째 인자로 취함
 
+### 로그인 페이지 작성
+
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%209.png)
+
 ### `login()`
 
 - `login(request, user, backend=None)`
@@ -242,38 +270,72 @@
 - 로그인 페이지 작성
 - view 함수 login 과의 충돌을 방지하기 위해 import한 login 함수 이름을 `auth_login`으로 변경해서 사용
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8ff61ae3-c2a9-4b0a-917d-75d6cee9698f/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2010.png)
 
 ### `get_user()`
 
 - `AuthenticationForm`의 인스턴스 메서드
 - 유효성 검사를 통과했을 경우 로그인한 사용자 객체를 반환
 
+### 세션 데이터 확인하기
+
+- 로그인 후 개발자 도구와 DB에서 django로부터 발급받은 세션 확인(로그인은 관리자 계정을 만든 후 진행)
+1. `django_session`테이블에서 확인
+
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2011.png)
+
+1. 브라우저에서 확인
+    1. 개발자도구 - Application - Cookies
+    
+    ![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2012.png)
+    
+
+### 로그인 링크 작성
+
+- 실습 편의를 위해 base 템플릿에 로그인 페이지로 이동할 수 있는 하이퍼링크 작성
+
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2013.png)
+
+## Authentication with User
+
+---
+
+### 개요
+
+- 템플릿에서 인증 관련 데이터를 출력하는 방법
+
 ### 현재 로그인 되어있는 유저 정보 출력하기
 
 - 템플릿에서 인증 관련 데이터를 출력하는 방법
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bac04218-1900-4254-892f-4b41a80e4cce/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2014.png)
 
 - 어떻게 base 템플릿에서 context 데이터 없이 user 변수를 사용할 수 있는 걸까?
     - `settings.py`의 **context processors** 설정값 때문
+    
+    ![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2015.png)
+    
 
 ### context processors
 
 - 템플릿이 렌더링될 때 호출 가능한 컨텍스트 데이터 목록
 - 작성된 컨텍스트 데이터는 기본적으로 템플릿에서 사용가능한 변수로 포함됨
 - 즉, django에서 자주 사용하는 데이터 목록을 미리 템플릿에 로드해둔것
+
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2016.png)
+
 - 현재 user 변수를 담당하는 프로세서는 `django.contrib.auth.context_processors.auth`
 - 이외에 더 많은 `Built-in template context processors`들은 공식문서를 참고
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/99c6c3de-97e1-41cc-a581-adebc852d9ff/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2017.png)
 
 ### `django.contrib.auth.context_processors.auth`
 
 - 현재 로그인한 사용자를 나타내는 User 클래스의 인스턴스가 템플릿 변수 `{{user}}`에 저장됨
     - 클라이언트가 로그인하지 않은 경우 `AnonymousUser`클래스의 인스턴스로 생성
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c51053ab-2c71-4b9d-897f-2795aad998ce/Untitled.png)
+    
+    ![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2018.png)
+    
 
 ## Logout
 
@@ -281,7 +343,7 @@
 
 ### 개요
 
-- 로그아웃은 `Session을 Delete`하는 과정
+- 로그아웃은 **Session을 Delete**하는 과정
 
 ### `logout()`
 
@@ -289,17 +351,17 @@
 - HttpRequest 객체를 인자로 받고 반환 값이 없음
 - 사용자가 로그인하지 않은 경우 오류를 발생시키지 않음
 - 다음 2가지 일을 처리한다
-    1. 현재 요청에 대한 `wsession data`를 DB에서 삭제
-    2. 클라이언트의 쿠키에서조 `session id`를 삭제
+    1. 현재 요청에 대한 `session data`를 DB에서 삭제
+    2. 클라이언트의 쿠키에서도 `session id`를 삭제
     - 이는 다른 사람이 동일한 웹 브라우저를 사용하여 로그인하고, 이전 사용자의 세션 데이터에 액세스하는 것을 방지하기 위함
 
 ### 로그아웃 로직 작성하기
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9891d867-e785-45da-8c2e-3163a20ebf84/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2019.png)
 
 ### 로그아웃 출력 확인 및 테스트
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/62ee8db9-de79-4762-a889-77446030b7c8/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2020.png)
 
 # Authentication with User
 
@@ -328,21 +390,21 @@
 
 ### 회원가입 페이지 작성
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/43dc1cdb-cbcb-48fe-8da2-43cc15d3947d/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2021.png)
 
 ### 회원가입 링크 작성 후 페이지 확인
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bd9c6559-657d-4432-ada9-d99981010188/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2022.png)
 
 ### 회원가입 로직 작성
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ab6595d3-dae9-4ff8-a2bd-fd779825dc9c/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2023.png)
 
 ### 회원가입 진행 후 에러 페이지를 확인
 
 - 회원가입에 사용하는 UserCreationForm이 우리가 대체한 커스텀 유저 모델이 아닌 기존 유저 모델로 인해 작성된 클래스이기 때문
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b70f5923-d07c-4954-b5cd-00e4f67136fc/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2024.png)
 
 ## Custom user & Built-in auth forms
 
@@ -370,7 +432,7 @@
 
 ### `UserCreationForm()` 커스텀 하기
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b47c4673-6cda-4d94-9119-da855fb7d237/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2025.png)
 
 ### `get_user_model()`
 
@@ -382,21 +444,21 @@
 
 ### `CustomUserCreationForm()`으로 대체하기
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cc1faee1-78dc-4437-85f7-0e95659d064d/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2026.png)
 
 ### 회원가입 진행 후 테이블 확인
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d49edf4a-8aa7-4862-9cc9-84ce612c5c36/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2027.png)
 
 ### 회원가입 후 곧바로 로그인 진행
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7fb75210-f741-40d2-834f-82e04a5315ba/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2028.png)
 
 ### ✅ UserCreationForm의 save 메서드
 
 - user를 반환하는 것을 확인
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cb5d14e9-3b71-4db3-8600-f9b06be0b27a/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2029.png)
 
 ## 회원 탈퇴
 
@@ -408,14 +470,14 @@
 
 ### 회원 탈퇴 로직 작성
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e2d7401b-e257-4d4a-a884-e884f38488a9/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2030.png)
 
 ### ✅ 탈퇴하면서 해당 유저의 세션 정보도 함께 지우고 싶을 경우
 
 - **탈퇴(1) 후 로그아웃(2)**의 순서가 바뀌면 안됨
     - 먼저 로그아웃 해버리면 해당 요청 객체 정보가 없어지기 때문에 탈퇴에 필요한 정보 또한 없어지기 때문
     
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/853716f1-de45-4159-94cf-f75ec819f4c8/Untitled.png)
+    ![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2031.png)
     
 
 ## 회원정보 수정
@@ -434,28 +496,27 @@
 
 ### 회원정보 수정 페이지 작성
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/953d422d-cdf3-4812-8eb6-24a4d18f73d7/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2032.png)
 
 ### 회원정보 수정 페이지 링크 작성
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cb0fb54d-d426-4896-8b73-07ae8c6d0b55/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2033.png)
 
 ### 회원정보 수정 페이지 확인
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f1e1feb1-4ee6-49a3-945f-c791d314c771/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2034.png)
 
 ### UserChangeForm 사용 시 문제점
 
 - 일반 사용자가 접근해서는 안 될 정보들(fields)까지 모두 수정이 가능해짐
     - admin 인터페이스에서 사용되는 ModelForm이기 때문
-- 따라서 UserChangeForm을 상속받아 작성해 두었던 서브클래스
-- CustomUserChangeForm에서 접근 가능한 필드를 조정해야함
+- 따라서 UserChangeForm을 상속받아 작성해 두었던 서브클래스 CustomUserChangeForm에서 접근 가능한 필드를 조정해야함
 
 ### CustomUserChangeForm fields 재정의
 
 - User 모델의 fields명은 어떻게 알 수 있을까?
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/106e4056-5d11-4206-928e-5535f9697c6c/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2035.png)
 
 ### User model 상속 구조 살펴보기
 
@@ -467,17 +528,17 @@
     1. 클래스 변수명들을 확인해보면 회원수정 페이지에서 봤던 필드들과 일치한다는 것을 확인할 수 있음
 4. 마지막으로 공식문서의 User 모델 Fields 확인
 
-### CustomUserChangeForm fields 재정이
+### CustomUserChangeForm fields 재정의
 
 - 수정하고자 하는 필드 작성 후 출력 변화 확인
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dfa85adb-bb73-4385-8935-926ce8d5957b/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2036.png)
 
 ### 회원정보 수정 로직 작성
 
 - 작성 후 실제 회원정보가 수정되었는지 확인
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2f886198-3b87-433e-8748-fa5d9ec27431/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2037.png)
 
 ## 비밀번호 변경
 
@@ -494,12 +555,12 @@
 - 회원정보 수정 페이지에서 비밀번호 변경 form 주소를 확인해보기
     - `/accounts/password/`
     
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9fcedccf-6a26-4b12-b3cb-a764c8faf5ae/Untitled.png)
+    ![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2038.png)
     
 
 ### 비밀번호 변경 페이지 작성
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/be7b86ae-e358-4c20-a2e6-ff9fb3febae6/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2039.png)
 
 ### ✅ SetPasswordForm 살펴보기
 
@@ -509,8 +570,9 @@
 
 - 작성 후 비밀번호 변경 확인
     - 변경 후 로그인 상태가 지속되지 못하는 문제 발생
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ddc0fc44-2a82-4430-a953-73958f56a9c0/Untitled.png)
+    
+    ![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2040.png)
+    
 
 ### 암호 변경 시 세션 무효화 방지하기
 
@@ -525,7 +587,7 @@
 
 ### `update_session_auth_hash()` 작성
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/99344a7f-5ee2-43c2-884e-efd643c9ee10/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2041.png)
 
 ## Limiting access to logged-in users
 
@@ -546,35 +608,37 @@
 - 모든 User 인스턴스에 대해 항상 True인 읽기 전용 속성
     - AnonymousUser에 대해서는 항상 False
 - 일반적으로 `request.user`에서 이 속성을 사용(`request.user.is_authenticated`)
-- **권한(permission)과는 관련이 없으며, 사용자가 활성화상태(active)이거나 유효한 세션(valid session)을 가지고 있는지도 확인하지 않음
+- **권한(permission)과는 관련이 없으며, 사용자가 활성화상태(active)이거나 유효한 세션(valid session)을 가지고 있는지도 확인하지 않음**
 
 ✅ is_authenticated 코드 살펴보기
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/19157799-dbb9-44c4-baed-04b60b72a1d2/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2042.png)
 
 ### `is_authenticated` 적용하기
 
 - 로그인과 비로그인 상태에서 출력되는 링크를 다르게 설정하기
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6b9c5abd-3784-4cb0-9847-8b5ca0c8f5d6/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2043.png)
 
 - 인증된 사용자만 게시글 작성 링크를 볼 수 있도록 처리하기
-- 하지만 아직 비로그이 상태로도 URL을 직접 입력하면 게시글 작성 페이지로 갈 수 있음
+- 하지만 아직 비로그인 상태로도 URL을 직접 입력하면 게시글 작성 페이지로 갈 수 있음
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/30419f4b-f78a-46ed-b302-cffc5c17cf32/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2044.png)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2002a846-ef6e-4e7e-9e2a-a368e563dff2/Untitled.png)
+- 인증된 사용자라면 로그인 로직을 수행할 수 없도록 처리
+
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2045.png)
 
 ### `login_required`
 
 - login_required decorator
 - 사용자가 로그인 되어있으면 정상적으로 view 함수를 실행
 - 로그인하지 않은 사용자의 경우 `settings.py`의 LOGIN_URL 문자열 주소로 redirect
-    - LOGIN_URL의 기본 값은 `/accounts/login/`
+    - ✅ LOGIN_URL의 기본 값은 `/accounts/login/`
     - 두번째 app 이름을 accounts 로 했던 이유 중 하나
 - 로그인 상태에서만 글을 작성/수정/삭제 할 수 있도록 변경
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c115e343-7a91-461f-a5c4-a2b6f4831ed6/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2046.png)
 
 ### login_required 적용 확인하기
 
@@ -590,16 +654,37 @@
 
 ### next query string parameter 대응
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f2625109-3a61-49d3-9a37-72b20c1d3b0e/Untitled.png)
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2047.png)
 
 ### next query string parameter 주의사항
 
 - 만약 login 템플릿에서 form action이 작성되어 있다면 동작하지 않음
     - 해당 action 주소 next 파미터가 작성되어있는 현재 url이 아닌 `/accounts/login/`으로 요청을 보내기 때문
     
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ff9b1e8a-5249-4e0f-8a80-1d03a3d45d95/Untitled.png)
+    ![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2048.png)
     
-    ### 두 데ㅗㅋ레이터로 인해 발생하는 구조적 문제
-    
+
+### 두 데코레이터로 인해 발생하는 구조적 문제
+
 1. 먼저 비로그인 상태로 detail 페이지에서 게시글 삭제 시도
-2. delete view 함수의 `@ㅣㅐ햐
+2. delete view 함수의 `@login_required`로 인해 로그인 페이지로 리다이렉트
+    1. `http://127.0.0.1:8000/accounts/login/?next=/articles/1/delete/`
+3. redirect로 이동한 로그인 페이지에서 로그인 진행
+4. delete view 함수의 `@require_POST`로 인해 405 상태 코드를 받게됨
+    1. 405(Method Not Allowed) statur code 확인
+- 로그인 성공 이후 GET method로 next 파라미터 주소에 리다이렉트 되기 때문
+
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2049.png)
+
+- 두가지 문제가 발생한것
+    1. redirect 과정에서 POST 요청 데이터의 손실
+    2. redirect로 인한 요청은 GET 요청 메서드로만 요청됨
+- 해결방안
+    - `@login_required`는 GET request method를 처리할 수 있는 View 함수에서만 사용해야함
+- POST method만 허용하는 delete 같은 함수는 내부에서는 `is_authenticated` 속성 값을 사용해서 처리
+
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2050.png)
+
+### accounts view 함수에 모든 데코레이터 및 속성 값 적용해보기
+
+![Untitled](Django%204%207edf1c5bf8f2403ba06217a96b5bb82b/Untitled%2051.png)
