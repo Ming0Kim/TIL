@@ -6,6 +6,8 @@
       <router-link :to="{ name: 'hello', params: { userName: 'ssafy' } }"
         >Hello</router-link
       >
+      |
+      <router-link :to="{ name: 'login' }">Login</router-link> |
     </nav>
     <router-view />
   </div>

@@ -12,6 +12,10 @@ export default {
       userName: this.$route.params.userName,
     }
   },
+  beforeRouteUpdate(to, from, next) {
+    this.userName = this.params.userName
+    next()
+  },
 }
 </script>
 
