@@ -41,7 +41,11 @@ function Todos({ todos, onCreate, onToggle }) {
 					placeholder='할 일을 입력하세요..'
 					onChange={onChange}
 				/>
+				<button type='submit'> 등록</button>
 			</form>
+			<TodoList todos={todos} onToggle={onToggle} />
 		</div>
 	);
 }
+
+export default Todos;
